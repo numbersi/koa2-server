@@ -1,0 +1,9 @@
+POST  http://127.0.0.1:3000/api/login
+
+content-type: application/json
+
+{
+  "name":"Hendry",
+"salary":"61888",
+"age":"26"
+}
