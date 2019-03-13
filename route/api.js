@@ -9,7 +9,8 @@ router.get('/banner', apiController.getBanner)
 router.post('/addBanner', apiController.addBanner)
 router.post('/login', apiController.login)
 router.get('/vod/:_id', apiController.getVod)
+router.get('/collect', apiController.collect)
 // 异步处理网页的签名
 router.post('/signature', wxController.getSDKSignature)
-
 module.exports = router
+

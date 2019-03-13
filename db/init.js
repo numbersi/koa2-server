@@ -32,7 +32,7 @@ exports.connect = () => {
         mongoose.connect(db)
       } else {
         reject(err)
-        throw new Error('数据库出现问题，程序无法搞定，请人为修理......')
+        throw new Error('数据库出现问题，程序无法搞定，请人为修理......',err)
       }
     })
     // 链接打开的时

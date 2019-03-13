@@ -11,6 +11,16 @@ const static = require('koa-static')
 var staticCache = require('koa-static-cache')
 const jwtConfig = require('./config/jwtConfig')
 const logger = require('koa-logger')
+
+const compress = require('koa-compress');
+
+
+const options = {
+  threshold: 100
+};
+
+app.use(compress(options));
+
 app.use(logger({
   // transporter: (str, args) => {
   //   console.log(str)
@@ -76,7 +86,7 @@ routes.forEach((element) => {
       route.routes(), route.allowedMethods())
   } else {
 
-      router.use('/' + index, route.routes(), route.allowedMethods())
+    router.use('/' + index, route.routes(), route.allowedMethods())
   }
 
 

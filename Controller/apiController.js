@@ -3,6 +3,7 @@ const VodModel = mongoose.model('Vod')
 const BannerModel = mongoose.model('Banner')
 const AdminModel = mongoose.model('Admin')
 const bcrypt = require('bcrypt')
+const CollectService = require('../service/CollectService')
 const JWT = require('jsonwebtoken')
 class apiController {
   static async getvod(ctx, next) {
@@ -71,19 +72,20 @@ class apiController {
 
   }
   static async login(ctx, next) {
+
     const data = ctx.request.body; // post过来的数据存在request.body里
-    // if((await AdminModel.find()).length<1){
-    //   bcrypt.genSalt(10, function (err, salt) {
-    //     bcrypt.hash(data.password, salt, (err, hash) => {
-    //       if (err) throw err;
-    //       AdminModel.create({
-    //         username:data.username,
-    //         password:hash
-    //       })
-    //       console.log(hash)
-    //     })
-    //   })
-    // }
+    if ((await AdminModel.find()).length < 1) {
+      bcrypt.genSalt(10, function (err, salt) {
+        bcrypt.hash(data.password, salt, (err, hash) => {
+          if (err) throw err;
+          AdminModel.create({
+            username: data.username,
+            password: hash
+          })
+          console.log(hash)
+        })
+      })
+    }
 
     if (!data) {
       return {
@@ -130,7 +132,13 @@ class apiController {
       }
     }
   }
+  static async collect(ctx, next) {
+    const {
+      wd
+    } = ctx.query
+    CollectService.searchByWd(wd)
 
+  }
 }
 
 module.exports = apiController
