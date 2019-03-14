@@ -105,7 +105,7 @@ class wxController {
             wd = content
           }
 
-          reply = await getDwz(`http://${ctx.request.header.host}/index?token=${token}&wd=${ wd}`)
+          reply = await getDwz(`http://${ctx.request.header.host}/index?token=${token}&wd=${wd}`)
         } else if (message.MsgType === 'event') {
           if (message.Event === 'subscribe') {
             reply = `【回复任何信息 得到网站链接，进入搜索你想观看的视频】
