@@ -11,10 +11,7 @@ const static = require('koa-static')
 var staticCache = require('koa-static-cache')
 const jwtConfig = require('./config/jwtConfig')
 const logger = require('koa-logger')
-
 const compress = require('koa-compress');
-
-
 const options = {
   threshold: 100
 };
@@ -28,7 +25,7 @@ app.use(logger({
 }))
 // 视图路径
 app.use(view());
-console.log('path.resolve(__dirname + ', path.resolve(__dirname + '/views'));
+console.log('path.resolve(__dirname + ', path.resolve(__dirname + '\\views'));
 // 静态文件
 app.use(static(path.join(__dirname + '\\public')))
 // 缓存
@@ -57,11 +54,7 @@ const {
   connect()
 })()
 app.use(async (ctx, next) => {
-  if (ctx.path === '/__webpack_hmr/client') {
-    return
-  }
-  await ctx.render('index')
-  await next()
+
 })
 
 
