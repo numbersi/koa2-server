@@ -53,9 +53,7 @@ const {
   initSchemas()
   connect()
 })()
-app.use(async (ctx, next) => {
 
-})
 
 
 
@@ -81,7 +79,7 @@ routes.forEach((element) => {
       }),
       route.routes(), route.allowedMethods())
   } else {
-
+    console.log('index :', index);
     router.use('/' + index, route.routes(), route.allowedMethods())
   }
 
