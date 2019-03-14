@@ -25,7 +25,7 @@ app.use(logger({
 }))
 // 视图路径
 console.log('path.resolve(__dirname + ', path.resolve(__dirname, '/views'));
-app.use(view( path.resolve(__dirname, '/views')));
+app.use(view(path.join(__dirname + '\\views')));
 // 静态文件
 app.use(static(path.join(__dirname + '\\public')))
 // 缓存
