@@ -18,12 +18,12 @@ class wxController {
       echostr,
       openid
     } = ctx.query
-    console.log( ctx.query)
+    console.log(ctx.query)
 
     const token = wxConfig.token
     let str = [token, timestamp, nonce].sort().join('')
     const sha = sha1(str)
-    ctx.body=sha
+    ctx.body = sha
     if (sha === signature) {
       console.log(echostr);
       ctx.body = echostr
@@ -85,7 +85,7 @@ class wxController {
         let reply = ''
 
         if (message.MsgType === 'text') {
-          // let content = message.Content
+          let content = message.Content
           // reply = '这是文本回复:' + content
           // let searchData=  await crawler2345.searchByKey(content)
           // console.log('searchData',searchData);
@@ -99,10 +99,18 @@ class wxController {
           const token = JWT.sign(openidToken, jwtConfig.weixin.secret, {
             expiresIn: jwtConfig.weixin.expiresIn
           })
-          reply = token // await getDwz(`http://${ctx.request.header.host}?token=${token}`)
+          let wd = ''
+          if (content == '1') {
+
+            wd = content
+          }
+
+          reply = await getDwz(`${ctx.request.header.host}?token=${token}&wd=${ wd}`)
         } else if (message.MsgType === 'event') {
           if (message.Event === 'subscribe') {
-            reply = '欢迎订阅,回复电视电影综艺节目的名字,就可以获得播放地址，免费收看' + ' ！'
+            reply = `【回复任何信息 得到网站链接，进入搜索你想观看的视频】
+                      此公众号采集了欧美中日韩等几万部电影电视剧，热门韩剧美剧综艺国产剧，且可以免费在线观看。
+                      但是因为采集服务器限制，每次链接过段时间失效，网站所有视频只能观看10分钟，只需要重新回复你想看的视频，或者回复【1】就可以从新获得有效链接`
           }
         }
 
