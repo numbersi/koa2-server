@@ -20,21 +20,22 @@ const options = {
 };
 
 app.use(compress(options));
-
 app.use(logger({
   // transporter: (str, args) => {
   //   console.log(str)
   //   console.log(args)
   // }
 }))
-
-app.use(view(path.join(__dirname + '\\public')));
+// 视图路径
+app.use(view());
+console.log('path.resolve(__dirname + ', path.resolve(__dirname + '/views'));
+// 静态文件
 app.use(static(path.join(__dirname + '\\public')))
-
+// 缓存
 app.use(staticCache(path.join(__dirname, 'public'), {
   maxAge: 365 * 24 * 60 * 60
 }))
-
+//加载 koaBody 
 app.use(koaBody({
   multipart: true, // 支持文件上传
   // encoding: 'gzip',
@@ -45,6 +46,8 @@ app.use(koaBody({
     },
   }
 }));
+
+//数据库
 const {
   connect,
   initSchemas
