@@ -91,21 +91,26 @@ class wxController {
           // console.log('searchData',searchData);
           // const url_long = require('../config/config').host + '/collect?wd=' + encodeURIComponent(content)
           // reply = url_short
-          const openidToken = {
-            iss: jwtConfig.weixin.iss,
-            openid
-          };
-          //serverConfig.jwtSecret; // 指定密钥，这是之后用来判断token合法性的标志
-          const token = JWT.sign(openidToken, jwtConfig.weixin.secret, {
-            expiresIn: jwtConfig.weixin.expiresIn
-          })
+
           let wd = ''
           if (content != '1') {
 
             wd = content
           }
+          const openidToken = {
+            iss: jwtConfig.weixin.iss,
+            openid,
+            wd
+          };
+          //serverConfig.jwtSecret; // 指定密钥，这是之后用来判断token合法性的标志
+          const token = JWT.sign(openidToken, jwtConfig.weixin.secret, {
+            expiresIn: jwtConfig.weixin.expiresIn
+          })
 
-          reply = await getDwz(`http://${ctx.request.header.host}/index?token=${token}&wd=${ encodeURIComponent(wd)}`)
+          console.log('wd :', wd);
+          reply = await getDwz(`http://${ctx.request.header.host}/index?token=${token}`)
+
+          console.log('reply :', reply);
         } else if (message.MsgType === 'event') {
           if (message.Event === 'subscribe') {
             reply = `【回复任何信息 得到网站链接，进入搜索你想观看的视频】
