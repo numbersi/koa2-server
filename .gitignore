@@ -1,5 +1,5 @@
 node_modules
-/public
-/views/index.html
-/views/admin.html
-/config/wx.js
+public
+views/index.html
+views/admin.html
+config/wx.js
