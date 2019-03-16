@@ -94,7 +94,6 @@ class wxController {
 
           let wd = ''
           if (content != '1') {
-
             wd = content
           }
           const openidToken = {
@@ -108,14 +107,14 @@ class wxController {
           })
 
           console.log('wd :', wd);
-          reply = await getDwz(`http://${ctx.request.header.host}/index?token=${token}`)
+          reply = `${await getDwz(`http://${ctx.request.header.host}/index/login?token=${token}`)}   #*#如果第一次打开是空白页，请刷新一下`
 
           console.log('reply :', reply);
         } else if (message.MsgType === 'event') {
           if (message.Event === 'subscribe') {
             reply = `【回复任何信息 得到网站链接，进入搜索你想观看的视频】
                       此公众号采集了欧美中日韩等几万部电影电视剧，热门韩剧美剧综艺国产剧，且可以免费在线观看。
-                      但是因为采集服务器限制，每次链接过段时间失效，网站所有视频只能观看10分钟，只需要重新回复你想看的视频，或者回复【1】就可以从新获得有效链接`
+                      但是因为采集服务器限制，链接过段时间失效，网站所有视频只能观看10分钟，只需要重新回复你想看的视频，或者回复【1】就可以从新获得有效链接`
           }
         }
 
@@ -136,6 +135,7 @@ class wxController {
   }
   static async getSDKSignature(ctx, next) {
     let url = ctx.request.header.referer
+    console.log(url)
     url = decodeURIComponent(url)
     const ticketData = await TokenService.fetchTicket()
     const ticket = ticketData.ticket
