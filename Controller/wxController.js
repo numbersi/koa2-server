@@ -136,7 +136,6 @@ class wxController {
   static async getSDKSignature(ctx, next) {
     let url = ctx.request.header.referer
     console.log(url)
-    url = decodeURIComponent(url)
     const ticketData = await TokenService.fetchTicket()
     const ticket = ticketData.ticket
     console.log(ticket)
